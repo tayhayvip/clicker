@@ -3,8 +3,20 @@
 #include <winuser.h>
 #include <strsafe.h>
 #include <ShObjIdl.h>
+#include <iomanip>
 
 using namespace std;
+
+void center(string text)
+{
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+	int columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+	
+	int length = text.length();
+	int space = ((columns / 2)  + (length / 2) - 20);
+	cout << right << setw(space) << text << endl;
+}
 
 void menu()
 {
@@ -13,17 +25,18 @@ void menu()
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 13);
 	cout << endl;
-	cout << "		   f4 to toggle left click		      " << endl;
-	cout << "		  f5 to toggle right click		      " << endl;
-	cout << "		        f6 to hide					  " << endl;
-	cout << "		      f7 to selfdel					  " << endl;
+	center("f4 to toggle left click");
+	center("f5 to toggle right click");
+	center("f6 to hide");
+	center("f7 to selfdel");
 	cout << endl;
 }
 
 int random(int x, int y)
 {
 	int random_integer;
-	int lowest = x, highest = y;
+	int lowest = x;
+	int highest = y;
 	int range = (highest - lowest) + 1;
 	random_integer = lowest + int(range * (rand() / (RAND_MAX + 1.0)));
 	int delay = 1000 / random_integer;
@@ -32,10 +45,11 @@ int random(int x, int y)
 
 void clicker()
 {
+	HWND hWnd = ::GetConsoleWindow();
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 12);
-	int x;
-	int y;
+	int x = 0;
+	int y = 0;
 	cout << "Min CPS: ";
 	cin >> x;
 	cout << "Max CPS: ";
@@ -44,17 +58,17 @@ void clicker()
 	if (x > y) {
 		cout << "Min CPS can't be greater than Max CPS." << endl;
 		Sleep(500);
-		exit(0);
+		PostMessage(hWnd, WM_CLOSE, 0, 0);
 	}
 	else if (x < 0) {
 		cout << "Min CPS can't be less than 0." << endl;
 		Sleep(500);
-		exit(0);
+		PostMessage(hWnd, WM_CLOSE, 0, 0);
 	}
 	else if (y < 0) {
 		cout << "Max CPS can't be less than 0." << endl;
 		Sleep(500);
-		exit(0);
+		PostMessage(hWnd, WM_CLOSE, 0, 0);
 	}
 
 	cout << endl;
@@ -135,7 +149,7 @@ void clicker()
 
 			CloseHandle(pi.hThread);
 			CloseHandle(pi.hProcess);
-			exit(0);
+			PostMessage(hWnd, WM_CLOSE, 0, 0);
 		}
 	}
 }
