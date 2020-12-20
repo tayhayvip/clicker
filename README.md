@@ -1,6 +1,6 @@
-# 𝗰𝗹𝗶𝗰𝗸𝗲𝗿
+# clicker
 
-🖱️ 𝗮𝗱𝗱 𝗮𝗿𝘁𝗶𝗳𝗶𝗰𝗮𝗹 𝗰𝗹𝗶𝗰𝗸𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗿𝗲𝗮𝗹 𝗰𝗹𝗶𝗰𝗸𝘀
+🖱️ add artificial clicks to your real clicks
 
 ## preview<br>
 ![](https://haram.vip/uploads/096ef20c-c4ee-4274-9aee-a86aa2b0b87a/Ifzn5PL8.png)
